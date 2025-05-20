@@ -1,0 +1,11 @@
+[
+  { "key": "window", "singular": "window", "plural": "windows" },
+  { "key": "chair", "singular": "chair", "plural": "chairs" },
+  { "key": "table", "singular": "table", "plural": "tables" },
+  { "key": "picture", "singular": "picture", "plural": "pictures" },
+  { "key": "wall-shelf", "singular": "wall shelf", "plural": "wall shelves" },
+  { "key": "table-lamp", "singular": "table lamp", "plural": "table lamps" },
+  { "key": "floor-lamp", "singular": "floor lamp", "plural": "floor lamps" },
+  { "key": "plant-pot", "singular": "plant pot", "plural": "plant pots" },
+  { "key": "clock", "singular": "clock", "plural": "clocks" }
+]

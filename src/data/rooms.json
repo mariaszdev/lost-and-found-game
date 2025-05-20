@@ -1,0 +1,123 @@
+{
+  "living-room": {
+    "displayName": "Living Room",
+    "rooms": [
+      {
+        "image": "living-room-01.png",
+        "window": 1,
+        "chair": 0,
+        "table": 1,
+        "picture": 0,
+        "clock": 1,
+        "wall-shelf": 1,
+        "table-lamp": 1,
+        "floor-lamp": 0,
+        "plant-pot": 1
+      },
+      {
+        "image": "living-room-02.png",
+        "window": 0,
+        "chair": 0,
+        "table": 1,
+        "picture": 3,
+        "clock": 1,
+        "wall-shelf": 0,
+        "table-lamp": 0,
+        "floor-lamp": 0,
+        "plant-pot": 1
+      }
+    ]
+  },
+  "bathroom": {
+    "displayName": "Bathroom",
+    "rooms": [
+      {
+        "image": "bathroom-01.png",
+        "window": 2,
+        "chair": 0,
+        "table": 0,
+        "picture": 0,
+        "clock": 0,
+        "wall-shelf": 0,
+        "table-lamp": 0,
+        "floor-lamp": 0,
+        "plant-pot": 2
+      },
+      {
+        "image": "bathroom-02.png",
+        "window": 3,
+        "chair": 0,
+        "table": 0,
+        "picture": 0,
+        "clock": 0,
+        "wall-shelf": 0,
+        "table-lamp": 0,
+        "floor-lamp": 0,
+        "plant-pot": 0
+      }
+    ]
+  },
+  "bedroom": {
+    "displayName": "Bedroom",
+    "rooms": [
+      {
+        "image": "bedroom-01.png",
+        "window": 2,
+        "chair": 0,
+        "table": 0,
+        "picture": 2,
+        "clock": 0,
+        "wall-shelf": 0,
+        "table-lamp": 0,
+        "floor-lamp": 0,
+        "plant-pot": 0
+      },
+      {
+        "image": "bedroom-02.png",
+        "window": 2,
+        "chair": 0,
+        "table": 1,
+        "picture": 0,
+        "clock": 0,
+        "wall-shelf": 0,
+        "table-lamp": 1,
+        "floor-lamp": 0,
+        "plant-pot": 0
+      }
+    ]
+  },
+  "dining-room": {
+    "displayName": "Dining Room",
+    "rooms": [
+      {
+        "image": "dining-room-01.png",
+        "window": 2,
+        "chair": 4,
+        "table": 1,
+        "picture": 2,
+        "clock": 1,
+        "wall-shelf": 0,
+        "table-lamp": 1,
+        "floor-lamp": 1,
+        "plant-pot": 2
+      }
+    ]
+  },
+  "kitchen": {
+    "displayName": "Kitchen",
+    "rooms": [
+      {
+        "image": "kitchen-01.png",
+        "window": 2,
+        "chair": 2,
+        "table": 1,
+        "picture": 0,
+        "clock": 0,
+        "wall-shelf": 2,
+        "table-lamp": 0,
+        "floor-lamp": 0,
+        "plant-pot": 0
+      }
+    ]
+  }
+}
