@@ -5,6 +5,7 @@ import Rooms from '@/components/Rooms';
 import StartGamePanel from '@/components/StartGamePanel';
 import ItemCard from '@/components/ItemCard';
 import { useGameController } from '@/hooks/useGameController';
+import items from '@/data/items.json';
 
 interface GameControllerProps {
   gameStarted: boolean;
@@ -36,7 +37,7 @@ export default function GameController({
           <StartGamePanel
             itemCount={itemCount}
             setItemCount={setItemCount}
-            maxItems={gameItems.length}
+            maxItems={items.length}
             onStart={startGame}
           />
         ) : (
