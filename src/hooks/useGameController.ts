@@ -22,12 +22,19 @@ export interface SelectedRoom {
   properties: Record<string, number>;
 }
 
+interface RoomData {
+  displayName: string;
+  rooms: {
+    image: string;
+    [key: string]: string | number;
+  }[];
+}
+
 const maxClues = roomProperties.length;
 const defaultItemCount = 4;
 
 export function useGameController(setGameStarted: (started: boolean) => void) {
   const [itemCount, setItemCount] = useState<number>(defaultItemCount);
-
   const [gameItems, setGameItems] = useState<ItemGameData[]>([]);
   const [selectedRooms, setSelectedRooms] = useState<SelectedRoom[]>([]);
 
@@ -39,22 +46,23 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
       setGameItems(saved.gameItems || []);
       setGameStarted(true);
     }
-  }, []);
+  }, [setGameStarted]);
 
   const startGame = () => {
-    const validCount = Math.max(1, Math.min(items.length, itemCount)); // ensure valid number
+    const validCount = Math.max(1, Math.min(items.length, itemCount));
     const shuffledItems = [...items].sort(() => 0.5 - Math.random());
     const selectedItems = shuffledItems.slice(0, validCount);
 
     const selectedRoomList: SelectedRoom[] = Object.entries(roomsByType).map(
-      ([type, { displayName, rooms }]: any) => {
+      ([type, data]) => {
+        const { displayName, rooms } = data as RoomData;
         const randomRoom = rooms[Math.floor(Math.random() * rooms.length)];
         const { image, ...props } = randomRoom;
         return {
           type,
           displayName,
           image,
-          properties: props,
+          properties: props as Record<string, number>,
         };
       }
     );
