@@ -9,7 +9,6 @@ interface ItemCardProps {
     clues: string[];
     correctGuess?: boolean;
   };
-  index: number;
   onClue: () => void;
   onGuess: (roomType: string) => void;
   selectedRooms: {
@@ -21,7 +20,6 @@ interface ItemCardProps {
 
 export default function ItemCard({
   item,
-  index,
   onClue,
   onGuess,
   selectedRooms,
