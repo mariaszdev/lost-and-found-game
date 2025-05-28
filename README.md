@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lost & Found Game 🕵️‍♀️🐾
 
-## Getting Started
+A browser-based deduction game where players try to find which room each item is in using logical clues.
+Designed to practice English vocabulary.
+A browser-based deduction game where players try to discover which room each item is hidden in—using logic and visual clues.  
+Designed to help practice English vocabulary in a playful way.
 
-First, run the development server:
+## ✨ Features
+
+- 🎲 Randomized item and room assignments
+- 🧩 Clue generation based on room properties
+- ✅ Interactive UI with feedback on guesses
+- 🖼️ Visual representation of rooms
+- ⚙️ Expandable settings and customization options
+
+## Tech Stack
+
+- ⚛️ React with Next.js
+- 💨 Tailwind CSS
+- 🧪 TypeScript
+- 📁 JSON-based room and item data structure
+
+## Development
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📁 File Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `components/` - React components like `LostItemsGame`, `ItemCard`, `StartGamePanel`, and `Rooms`
+- `data/` - Game data: `items.json`, `rooms.json`, `roomProperties.json`
+- `utils/` - Helper functions (e.g., `generateClue.ts`)
+- `public/rooms/` - Room images
 
-## Learn More
+## 🧪 Upcoming Features
 
-To learn more about Next.js, take a look at the following resources:
+- 📘 How to Play section
+- 💾 Save game state (cookies or localStorage)
+- ✏️ Add your own custom list of items
+- 🔍 Clickable room images that enlarge
+- 🇩🇪 German translation hover tooltips
+- 🎞️ Animations using Framer Motion (e.g. animated point reductions)
+- 🔊 Optional audio of clues.
+- 🦻 Improved accessibility features: e.g. text-based list of room properties
+- 🤝 Collaborative or competitive game modes
+- 🏁 Game Over screen with results summary
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Credits
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Room illustrations by [marcolivolsi04 on Vecteezy](https://www.vecteezy.com/members/marcolivolsi04)
