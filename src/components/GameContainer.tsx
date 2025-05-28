@@ -5,7 +5,7 @@ import Image from 'next/image';
 import GameController from './GameController';
 import RestartButton from './RestartButton';
 
-export default function Game() {
+export default function GameContainer() {
   const [gameStarted, setGameStarted] = useState(false);
 
   return (

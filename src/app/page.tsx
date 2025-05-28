@@ -1,9 +1,9 @@
-import Game from '@/components/Game';
+import GameContainer from '@/components/GameContainer';
 
 export default function Home() {
   return (
     <main>
-      <Game />
+      <GameContainer />
     </main>
   );
 }

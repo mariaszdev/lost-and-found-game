@@ -8,6 +8,7 @@ Designed to help practice English vocabulary in a playful way.
 - 🎲 Randomized item and room assignments
 - 🧩 Clue generation based on room properties
 - ✅ Interactive UI with feedback on guesses
+- 🎯 Win and lose functionality: The game ends when all items are correctly guessed (win) or the player runs out of points (loss).
 - 💾 Auto-saving game progress in cookies
 - 🔁 Restart functionality with cookie clearing
 - 🍪 Cookie notice for transparency
@@ -41,8 +42,8 @@ Then open [http://localhost:3000](http://localhost:3000) to view it in your brow
 
 - 📘 How to Play section
 - ✏️ Add your own custom list of items
+- 🖼️ Updated room images and roomProperties for improved gameplay
 - 🔍 Room image zoom option (for better detail visibility)
-- 🏁 Game Over screen with summary and restart options
 - 🇩🇪 German translation tooltips
 - 🎞️ Animations using Framer Motion (e.g., animated point reductions)
 - 🔊 Optional audio for clues

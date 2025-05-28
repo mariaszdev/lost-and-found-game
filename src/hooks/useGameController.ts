@@ -37,6 +37,9 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
   const [itemCount, setItemCount] = useState<number>(defaultItemCount);
   const [gameItems, setGameItems] = useState<ItemGameData[]>([]);
   const [selectedRooms, setSelectedRooms] = useState<SelectedRoom[]>([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [hasWon, setHasWon] = useState<boolean | null>(null);
+  const [totalScore, setTotalScore] = useState(0);
 
   useEffect(() => {
     const saved = loadGameState();
@@ -47,6 +50,20 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
       setGameStarted(true);
     }
   }, [setGameStarted]);
+
+  useEffect(() => {
+    const score = gameItems.reduce((acc, item) => acc + item.score, 0);
+    setTotalScore(score);
+
+    if (gameItems.length === 0) return;
+
+    const allGuessed = gameItems.every((item) => item.correctGuess);
+    const lost = score < 0 && !allGuessed;
+    const won = allGuessed && score >= 0;
+
+    setGameOver(lost || won);
+    setHasWon(won);
+  }, [gameItems]);
 
   const startGame = () => {
     const validCount = Math.max(1, Math.min(items.length, itemCount));
@@ -166,5 +183,8 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
     handleGetClue,
     handleGuess,
     maxClues,
+    gameOver,
+    hasWon,
+    totalScore,
   };
 }

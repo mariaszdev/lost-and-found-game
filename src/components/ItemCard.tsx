@@ -14,6 +14,8 @@ interface ItemCardProps {
     displayName: string;
   }[];
   maxClues?: number;
+  gameOver: boolean;
+  totalScore: number;
 }
 
 export default function ItemCard({
@@ -22,8 +24,12 @@ export default function ItemCard({
   onGuess,
   selectedRooms,
   maxClues = 10,
+  gameOver,
+  totalScore,
 }: ItemCardProps) {
   const outOfClues = item.clues.length >= maxClues;
+  const noPointsLeft = totalScore === 0;
+  const isDisabled = gameOver || noPointsLeft;
 
   return (
     <div className="flex flex-col h-auto w-full bg-white shadow-md rounded-2xl p-5 border border-gray-200 justify-between">
@@ -44,10 +50,19 @@ export default function ItemCard({
             <span className="text-red-600 text-sm font-medium">
               No more clues available
             </span>
+          ) : noPointsLeft ? (
+            <span className="text-red-600 text-sm font-medium">
+              You're out of points. No more clues.
+            </span>
           ) : (
             <button
               onClick={onClue}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-2 rounded-md flex items-center gap-2 cursor-pointer"
+              disabled={isDisabled}
+              className={`text-white px-2 py-2 rounded-md flex items-center gap-2 bg-emerald-500 ${
+                isDisabled
+                  ? 'opacity-50'
+                  : 'hover:bg-emerald-600 cursor-pointer'
+              }`}
             >
               Give me a clue
               <Image
@@ -64,7 +79,12 @@ export default function ItemCard({
           <select
             onChange={(e) => onGuess(e.target.value)}
             defaultValue=""
-            className="border pl-2 py-2 rounded-md text-gray-700"
+            disabled={gameOver}
+            className={`pl-2 py-2 rounded-md ${
+              gameOver
+                ? 'bg-gray-200 text-gray-400 border-none'
+                : 'border border-gray-400 text-gray-700 cursor-pointer'
+            }`}
           >
             <option value="" disabled>
               Guess room
