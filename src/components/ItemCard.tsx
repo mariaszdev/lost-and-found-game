@@ -2,13 +2,11 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { ItemGameData } from '@/hooks/useGameController';
 
 interface ItemCardProps {
-  item: {
-    name: string;
-    clues: string[];
-    correctGuess?: boolean;
-  };
+  item: ItemGameData;
+  index: number;
   onClue: () => void;
   onGuess: (roomType: string) => void;
   selectedRooms: {
