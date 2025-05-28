@@ -51,7 +51,7 @@ export default function ItemCard({
           ) : (
             <button
               onClick={onClue}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-2 rounded flex items-center gap-2 cursor-pointer"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-2 rounded-md flex items-center gap-2 cursor-pointer"
             >
               Give me a clue
               <Image

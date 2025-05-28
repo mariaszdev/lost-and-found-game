@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Rooms from '@/components/Rooms';
 import StartGamePanel from '@/components/StartGamePanel';
@@ -8,9 +8,15 @@ import ItemCard from '@/components/ItemCard';
 
 import items from '@/data/items.json';
 import roomsByType from '@/data/rooms.json';
-import roomProperties from '../data/roomProperties.json';
+import roomProperties from '@/data/roomProperties.json';
 
 import { generateClue } from '@/utils/generateClue';
+import { saveGameState, loadGameState } from '@/utils/saveGame';
+
+interface GameControllerProps {
+  gameStarted: boolean;
+  setGameStarted: (started: boolean) => void;
+}
 
 interface ItemGameData {
   name: string;
@@ -40,14 +46,25 @@ const getGrammar = (itemName: string) => {
   };
 };
 
-export default function LostItemsGame() {
+export default function GameController({
+  gameStarted,
+  setGameStarted,
+}: GameControllerProps) {
   const [itemCount, setItemCount] = useState(5);
-  const [gameStarted, setGameStarted] = useState(false);
   const [gameItems, setGameItems] = useState<ItemGameData[]>([]);
   const [selectedRooms, setSelectedRooms] = useState<SelectedRoom[]>([]);
 
+  useEffect(() => {
+    const saved = loadGameState();
+    if (saved) {
+      setItemCount(saved.itemCount || 5);
+      setSelectedRooms(saved.selectedRooms || []);
+      setGameItems(saved.gameItems || []);
+      setGameStarted(true);
+    }
+  }, []);
+
   const startGame = () => {
-    // 1. Randomly select one room for each type
     const selectedRoomList: SelectedRoom[] = Object.entries(roomsByType).map(
       ([type, { displayName, rooms }]: any) => {
         const randomRoom = rooms[Math.floor(Math.random() * rooms.length)];
@@ -61,9 +78,6 @@ export default function LostItemsGame() {
       }
     );
 
-    setSelectedRooms(selectedRoomList);
-
-    // 2. Randomly assign items to those rooms
     const shuffledItems = [...items].sort(() => 0.5 - Math.random());
     const selectedItems = shuffledItems.slice(0, itemCount);
     const assignedItems: ItemGameData[] = selectedItems.map((item) => {
@@ -79,13 +93,15 @@ export default function LostItemsGame() {
       };
     });
 
-    console.log('🎯 Item locations:');
-    assignedItems.forEach((item) => {
-      console.log(`${item.name} → ${item.room}`);
-    });
-
+    setSelectedRooms(selectedRoomList);
     setGameItems(assignedItems);
     setGameStarted(true);
+
+    saveGameState({
+      itemCount,
+      gameItems: assignedItems,
+      selectedRooms: selectedRoomList,
+    });
   };
 
   const handleGetClue = (itemIndex: number) => {
@@ -110,7 +126,13 @@ export default function LostItemsGame() {
           clueCount: currentItem.clueCount + 1,
           score: currentItem.score - 1,
         };
+        saveGameState({
+          itemCount,
+          gameItems: updatedItems,
+          selectedRooms,
+        });
       }
+
       return updatedItems;
     });
   };
@@ -134,6 +156,12 @@ export default function LostItemsGame() {
         clues: [...currentItem.clues, feedback],
         score: isCorrect ? currentItem.score : currentItem.score - 10,
       };
+
+      saveGameState({
+        itemCount,
+        gameItems: updatedItems,
+        selectedRooms,
+      });
 
       return updatedItems;
     });
@@ -167,20 +195,19 @@ export default function LostItemsGame() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               }}
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {gameItems.map((item, index) => (
-                  <ItemCard
-                    key={index}
-                    item={item}
-                    index={index}
-                    onClue={() => handleGetClue(index)}
-                    onGuess={(room) => handleGuess(index, room)}
-                    selectedRooms={selectedRooms}
-                    maxClues={maxClues}
-                  />
-                ))}
-              </div>
+              {gameItems.map((item, index) => (
+                <ItemCard
+                  key={index}
+                  item={item}
+                  index={index}
+                  onClue={() => handleGetClue(index)}
+                  onGuess={(room) => handleGuess(index, room)}
+                  selectedRooms={selectedRooms}
+                  maxClues={maxClues}
+                />
+              ))}
             </div>
+
             <Rooms rooms={selectedRooms} />
           </div>
         )}
