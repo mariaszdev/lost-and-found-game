@@ -23,16 +23,18 @@ export interface SelectedRoom {
 }
 
 const maxClues = roomProperties.length;
+const defaultItemCount = 4;
 
 export function useGameController(setGameStarted: (started: boolean) => void) {
-  const [itemCount, setItemCount] = useState(4);
+  const [itemCount, setItemCount] = useState<number>(defaultItemCount);
+
   const [gameItems, setGameItems] = useState<ItemGameData[]>([]);
   const [selectedRooms, setSelectedRooms] = useState<SelectedRoom[]>([]);
 
   useEffect(() => {
     const saved = loadGameState();
     if (saved) {
-      setItemCount(saved.itemCount || 5);
+      setItemCount(Number(saved.itemCount) || defaultItemCount);
       setSelectedRooms(saved.selectedRooms || []);
       setGameItems(saved.gameItems || []);
       setGameStarted(true);
@@ -40,6 +42,10 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
   }, []);
 
   const startGame = () => {
+    const validCount = Math.max(1, Math.min(items.length, itemCount)); // ensure valid number
+    const shuffledItems = [...items].sort(() => 0.5 - Math.random());
+    const selectedItems = shuffledItems.slice(0, validCount);
+
     const selectedRoomList: SelectedRoom[] = Object.entries(roomsByType).map(
       ([type, { displayName, rooms }]: any) => {
         const randomRoom = rooms[Math.floor(Math.random() * rooms.length)];
@@ -53,8 +59,6 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
       }
     );
 
-    const shuffledItems = [...items].sort(() => 0.5 - Math.random());
-    const selectedItems = shuffledItems.slice(0, itemCount);
     const assignedItems: ItemGameData[] = selectedItems.map((item) => {
       const randomRoom =
         selectedRoomList[Math.floor(Math.random() * selectedRoomList.length)];
@@ -73,7 +77,7 @@ export function useGameController(setGameStarted: (started: boolean) => void) {
     setGameStarted(true);
 
     saveGameState({
-      itemCount,
+      itemCount: validCount,
       gameItems: assignedItems,
       selectedRooms: selectedRoomList,
     });

@@ -15,6 +15,19 @@ export default function StartGamePanel({
   maxItems,
   onStart,
 }: StartGamePanelProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsed = parseInt(e.target.value, 10);
+    setItemCount(isNaN(parsed) ? 1 : parsed);
+  };
+
+  const handleBlur = () => {
+    if (itemCount < 1) {
+      setItemCount(1);
+    } else if (itemCount > maxItems) {
+      setItemCount(maxItems);
+    }
+  };
+
   return (
     <div className="space-y-6 max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
       <label className="block text-gray-700">
@@ -24,11 +37,9 @@ export default function StartGamePanel({
           value={itemCount}
           min={1}
           max={maxItems}
-          onChange={(e) =>
-            setItemCount(
-              Math.max(1, Math.min(maxItems, parseInt(e.target.value))) || 1
-            )
-          }
+          step={1}
+          onChange={handleChange}
+          onBlur={handleBlur}
           className="ml-2 mt-1 border p-2 w-24 rounded-md shadow-sm"
         />
       </label>
