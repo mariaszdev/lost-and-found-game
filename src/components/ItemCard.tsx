@@ -52,7 +52,7 @@ export default function ItemCard({
             </span>
           ) : noPointsLeft ? (
             <span className="text-red-600 text-sm font-medium">
-              You're out of points. No more clues.
+              You&apos;re out of points. No more clues.
             </span>
           ) : (
             <button
